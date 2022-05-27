@@ -8,12 +8,16 @@ var server = http.createServer(hanelRequest);
 function hanelRequest(req,res){
   if (req.method == 'GET' && req.url == '/file') {
     res.setHeader('Content-Type', 'text/plain');
-      res.write("Welcome to homepage");
-      res.end();
-  } else if (req.method == 'GET' && req.url == '/stream') {
+       fs.readFile('./node.html', (err, content) =>{
+           if(err) console.log(err);
+           res.end(content);
+       })
+      
+  } 
+  
+   if(req.method == 'GET' && req.url == '/stream') {
     res.setHeader('Content-Type', 'text/html');
     fs.createReadStream('./node.html').pipe(res);
-    res.end()
   }
 };
 
